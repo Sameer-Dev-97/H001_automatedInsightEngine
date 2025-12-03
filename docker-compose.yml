@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  trendspotter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trendspotter-engine
+    volumes:
+      # Mount current directory to persist outputs
+      - ./Output:/app/Output
+      - ./Screenshots:/app/Screenshots
+      - ./ad_traffic_data.csv:/app/ad_traffic_data.csv:ro
+      - ./.env:/app/.env:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+    restart: "no"
+
